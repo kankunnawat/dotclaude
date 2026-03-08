@@ -1,0 +1,39 @@
+# Session/runtime state
+history.jsonl
+projects/
+session-env/
+file-history/
+shell-snapshots/
+ide/
+debug/
+statsig/
+cache/
+downloads/
+backups/
+paste-cache/
+
+# Secrets and local-only
+*.local.*
+policy-limits.json
+remote-settings.json
+stats-cache.json
+
+# Plugins (managed by plugin tool)
+plugins/
+
+# OS
+.DS_Store
+
+# Agent memory (project-specific, not global)
+agent-memory/
+
+# Ephemeral task/plan state
+tasks/
+plans/
+config/
+
+# Internal
+.claude/
+statusline.sh
+telemetry/
+todos/
