@@ -22,26 +22,12 @@ confirmation at any step.
 
 ## 1. Review
 
-Run two review passes in parallel, then merge findings.
-
-### Pass A — pr-review-toolkit agents
+Run external review agents in parallel.
 
 Launch these Task tool agents **in parallel** (single message,
-multiple tool calls), each with `subagent_type` from the
-pr-review-toolkit plugin. Tell each agent which files changed
-(from `git diff --name-only <base>...HEAD`):
-
-| agent | focus |
-|-------|-------|
-| `pr-review-toolkit:code-reviewer` | Code quality, style, project guidelines |
-| `pr-review-toolkit:silent-failure-hunter` | Silent failures, swallowed errors, bad fallbacks |
-| `pr-review-toolkit:pr-test-analyzer` | Test coverage gaps and missing edge cases |
-
-### Pass B — external second opinion
-
-Launch these Task tool agents **in parallel with Pass A** — all
-5 agents in a single message, multiple tool calls. Each uses
-`subagent_type: general-purpose`.
+multiple tool calls). Each uses `subagent_type: general-purpose`.
+Tell each agent which files changed
+(from `git diff --name-only <base>...HEAD`).
 
 **Codex reviewer** — tell the agent to run:
 
@@ -93,8 +79,8 @@ cat /tmp/pr-review-prompt.txt | gemini -p - \
 
 ### Merge findings
 
-Collect results from all 5 sources (3 toolkit agents + Codex +
-Gemini). Deduplicate overlapping findings — if multiple sources
+Collect results from both sources (Codex + Gemini).
+Deduplicate overlapping findings — if multiple sources
 flag the same issue, keep the most specific description and note
 the consensus. Rank every finding by severity:
 
