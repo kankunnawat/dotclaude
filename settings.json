@@ -115,6 +115,37 @@
             "command": "CMD=$(jq -r '.tool_input.command'); if echo \"$CMD\" | grep -qiE '(^|;[[:space:]]*|&&[[:space:]]*|[|][|][[:space:]]*|[|][[:space:]]*)rm[[:space:]]' && echo \"$CMD\" | grep -qiE '(^|[[:space:]])-[a-zA-Z]*[rR]|--recursive' && echo \"$CMD\" | grep -qiE '(^|[[:space:]])-[a-zA-Z]*[fF]|--force'; then echo 'BLOCKED: Use trash instead of rm -rf' >&2; exit 2; fi"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(echo $CLAUDE_TOOL_INPUT | jq -r \".file_path // .filePath // empty\"); if echo \"$FILE\" | grep -q \"btz-ios/\"; then echo \"BLOCKED: btz-ios/ is read-only. All new code goes in BitazzaApp/.\" >&2; exit 2; fi"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "DIR=\"$(pwd)/.claude/sessions\"; mkdir -p \"$DIR\"; TOPIC=$(basename \"$(pwd)\"); FILE=\"$DIR/$(date +%Y-%m-%d-%H%M)-precompact.md\"; echo \"# Pre-Compact State Save\\nDate: $(date '+%Y-%m-%d %H:%M')\\nProject: $TOPIC\\nWorking directory: $(pwd)\\n\\n## Note\\nContext was compacted. Re-read task tracking files and .claude/sessions/ for continuity.\" > \"$FILE\"; echo \"State saved to $FILE\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(echo $CLAUDE_TOOL_INPUT | jq -r \".file_path // .filePath // empty\"); if echo \"$FILE\" | grep -qE \"\\.swift$\"; then swiftlint lint --path \"$FILE\" --quiet 2>&1 | head -5; fi; exit 0"
+          }
+        ]
       }
     ]
   },
@@ -134,13 +165,43 @@
     "context7@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
-    "claude-mem@thedotmack": true
+    "claude-mem@thedotmack": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "explanatory-output-style@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "mgrep@Mixedbread-Grep": true,
+    "everything-claude-code@everything-claude-code": true,
+    "swiftui-expert@swiftui-expert-skill": true,
+    "code-simplifier@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "thedotmack": {
       "source": {
         "source": "github",
         "repo": "thedotmack/claude-mem"
+      }
+    },
+    "Mixedbread-Grep": {
+      "source": {
+        "source": "github",
+        "repo": "mixedbread-ai/mgrep"
+      },
+      "autoUpdate": true
+    },
+    "everything-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "affaan-m/everything-claude-code"
+      },
+      "autoUpdate": true
+    },
+    "swiftui-expert-skill": {
+      "source": {
+        "source": "github",
+        "repo": "AvdLee/SwiftUI-Agent-Skill"
       }
     }
   },
