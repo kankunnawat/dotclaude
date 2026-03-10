@@ -32,6 +32,12 @@ tasks/
 plans/
 config/
 
+# Generated/ephemeral data
+homunculus/
+metrics/
+sessions/
+usage-data/
+
 # Internal
 .claude/
 statusline.sh

@@ -1,0 +1,19 @@
+{
+  "name": "tmux-test",
+  "description": "Quick test team to verify tmux split panes work",
+  "createdAt": 1773121011444,
+  "leadAgentId": "team-lead@tmux-test",
+  "leadSessionId": "1719e1b8-a4b5-4760-99ac-cc5999ce1252",
+  "members": [
+    {
+      "agentId": "team-lead@tmux-test",
+      "name": "team-lead",
+      "agentType": "team-lead",
+      "model": "claude-opus-4-6",
+      "joinedAt": 1773121011444,
+      "tmuxPaneId": "",
+      "cwd": "/Users/bitazza/Personal",
+      "subscriptions": []
+    }
+  ]
+}

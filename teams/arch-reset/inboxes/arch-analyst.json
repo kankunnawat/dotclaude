@@ -1,0 +1,9 @@
+[
+  {
+    "from": "analyst",
+    "text": "{\"type\":\"task_assignment\",\"taskId\":\"1\",\"subject\":\"Analyze current architecture and identify technical debt\",\"description\":\"Deep-dive into the existing Bitazza iOS codebase. Analyze: module structure (BitazzaAppV2, Core, CoreService, CoreUI), dependency graph, Data/Domain/Features layering, DI approach (Swinject), navigation patterns, networking (Alamofire+WebSocket), third-party SDK coupling. Identify technical debt: tight coupling, god objects, missing abstractions, test coverage gaps, duplicated code, layer violations. Produce a prioritized debt inventory.\",\"assignedBy\":\"analyst\",\"timestamp\":\"2026-03-10T05:06:40.861Z\"}",
+    "timestamp": "2026-03-10T05:06:40.861Z",
+    "color": "blue",
+    "read": false
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "from": "team-lead",
+    "text": "You are the **tester** agent on the phase1-core team. Your task is Task #3: Write tests for all migrated Core code.\n\n## Context\nThe migrator just finished populating `Packages/Core/Sources/Core/` with 9 files extracted from the monolith. Your job is to write comprehensive tests for all of them.\n\n## Migrated Files to Test\n\n```\nPackages/Core/Sources/Core/\n├── Extensions/\n│   ├── Array+Extensions.swift      — Safe subscript access\n│   ├── Codable+Extensions.swift    — JSON encoding, flexible decoding\n│   ├── Decimal+Extensions.swift    — Formatting, rounding, conversion (HIGH PRIORITY - financial)\n│   ├── Dictionary+Extensions.swift — JSON serialization\n│   ├── Double+Extensions.swift     — Formatting, rounding, conversion\n│   ├── Int+Extensions.swift        — Number formatting\n│   ├── String+Utilities.swift      — Number formatting, toDouble, toDecimal, URL encoding\n│   └── String+Validation.swift     — Email, regex, password validation\n└── Utilities/\n    └── CacheWrapper.swift          — Property wrapper, Sendable\n```\n\n## Your Steps\n\n### Step 1: Read every migrated file\nRead all 9 files to understand the public API surface and edge cases.\n\n### Step 2: Write tests\nCreate test files in `Packages/Core/Tests/CoreTests/` using **Swift Testing** framework (NOT XCTest):\n- Use `import Testing` and `@Test` attribute\n- Use `#expect()` for assertions\n- One test file per source file (e.g., `ArrayExtensionsTests.swift`)\n- Remove or replace the existing placeholder `CoreTests.swift`\n\n### Step 3: Test priorities\n- **Decimal+Extensions** gets the MOST thorough tests — this is a financial app. Test:\n  - Precision (no floating point drift)\n  - Rounding modes\n  - Edge cases: zero, negative, very large numbers, very small numbers\n  - String ↔ Decimal conversion accuracy\n- **String+Validation** — test valid/invalid emails, passwords, edge cases\n- **Codable+Extensions** — test encoding/decoding, type coercion, missing fields\n- **Array+Extensions** — test bounds (negative index, out of range, empty array)\n- **CacheWrapper** — test property wrapper get/set, default values\n\n### Step 4: Run tests\nRun `swift test` in `Packages/Core/` to verify all tests pass.\n\n### Step 5: Report back\nSend a message to the team lead with:\n- Number of test files and test cases created\n- Any issues found in the migrated code\n- Test pass/fail results\n\n## Rules\n- Target 80%+ coverage\n- Test edges and errors, not just happy path\n- Use descriptive test names: `@Test(\"Array safe subscript returns nil for out-of-bounds index\")`\n- Do NOT modify source files — only create test files\n- If you find bugs in migrated code, report them but do NOT fix them\n\n## File locations\n- Source: `/Users/bitazza/Work/btz-ios-refacter-fresh/Packages/Core/Sources/Core/`\n- Tests: `/Users/bitazza/Work/btz-ios-refacter-fresh/Packages/Core/Tests/CoreTests/`\n- Package.swift: `/Users/bitazza/Work/btz-ios-refacter-fresh/Packages/Core/Package.swift`\n",
+    "timestamp": "2026-03-10T05:53:09.985Z",
+    "read": true
+  },
+  {
+    "from": "tester",
+    "text": "{\"type\":\"task_assignment\",\"taskId\":\"3\",\"subject\":\"Write tests for all migrated Core code\",\"description\":\"Using Swift Testing framework (@Test), write comprehensive tests for every extension and utility migrated into Packages/Core/Sources/Core/. Target 80%+ coverage. Tests go in Packages/Core/Tests/CoreTests/. Test edges and errors, not just happy path. Use Decimal precision tests for financial helpers.\",\"assignedBy\":\"tester\",\"timestamp\":\"2026-03-10T05:56:11.540Z\"}",
+    "timestamp": "2026-03-10T05:56:11.540Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "team-lead",
+    "text": "{\"type\":\"shutdown_request\",\"requestId\":\"shutdown-1773122434663@tester\",\"from\":\"team-lead\",\"reason\":\"Phase 1 complete. Great test coverage. Shutting down.\",\"timestamp\":\"2026-03-10T06:00:34.663Z\"}",
+    "timestamp": "2026-03-10T06:00:34.663Z",
+    "read": true
+  }
+]

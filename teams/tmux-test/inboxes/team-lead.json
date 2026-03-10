@@ -1,0 +1,46 @@
+[
+  {
+    "from": "beta",
+    "text": "Hello! I'm running and confirmed I'm in a tmux pane. Here's the output from `tmux list-panes -a`:\n\n```\n0:1.1: [70x40] [history 9/50000, 6796 bytes] %0 (active)\n```\n\nThere is one tmux session (session `0`) with one window (window `1`) and one pane (pane `1`), which is the active pane I'm running in. The pane is 70 columns by 40 rows.",
+    "summary": "Confirmed running in tmux, one pane found",
+    "timestamp": "2026-03-10T05:37:18.407Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "alpha",
+    "text": "Hello from teammate alpha! I'm up and running.\n\nI confirmed I'm running in a tmux environment. Here's what `tmux list-panes -a` shows:\n\n```\n0:1.1: [70x40] [history 9/50000, 6796 bytes] %0 (active)\n```\n\nThere is 1 tmux pane visible:\n- **Session 0, Window 1, Pane 1** — 70x40 terminal, active, pane ID %0\n\nThis appears to be a single-pane setup. Let me know if you need anything else.",
+    "summary": "Alpha running, reports 1 tmux pane found",
+    "timestamp": "2026-03-10T05:37:19.299Z",
+    "color": "blue",
+    "read": true
+  },
+  {
+    "from": "beta",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"beta\",\"timestamp\":\"2026-03-10T05:37:21.635Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T05:37:21.635Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "alpha",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"alpha\",\"timestamp\":\"2026-03-10T05:37:22.358Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T05:37:22.358Z",
+    "color": "blue",
+    "read": true
+  },
+  {
+    "from": "alpha",
+    "text": "{\"type\":\"shutdown_approved\",\"requestId\":\"shutdown-1773121066099@alpha\",\"from\":\"alpha\",\"timestamp\":\"2026-03-10T05:37:49.598Z\",\"paneId\":\"in-process\",\"backendType\":\"in-process\"}",
+    "timestamp": "2026-03-10T05:37:49.598Z",
+    "color": "blue",
+    "read": true
+  },
+  {
+    "from": "beta",
+    "text": "{\"type\":\"shutdown_approved\",\"requestId\":\"shutdown-1773121066380@beta\",\"from\":\"beta\",\"timestamp\":\"2026-03-10T05:37:49.671Z\",\"paneId\":\"in-process\",\"backendType\":\"in-process\"}",
+    "timestamp": "2026-03-10T05:37:49.671Z",
+    "color": "green",
+    "read": true
+  }
+]

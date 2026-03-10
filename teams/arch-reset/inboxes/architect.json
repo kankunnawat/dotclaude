@@ -1,0 +1,9 @@
+[
+  {
+    "from": "designer",
+    "text": "{\"type\":\"task_assignment\",\"taskId\":\"3\",\"subject\":\"Design new clean architecture with interfaces and patterns\",\"description\":\"Based on the current codebase analysis, propose a new architecture for the Bitazza iOS app. Cover: module boundaries (SPM vs local packages), clean architecture layers, protocol-based DI, navigation (Coordinator/Router), networking abstraction, state management (SwiftUI @Observable vs Combine), error handling strategy, and testing architecture. Define clean interfaces between layers. Propose concrete folder structure and naming conventions.\",\"assignedBy\":\"designer\",\"timestamp\":\"2026-03-10T05:06:35.996Z\"}",
+    "timestamp": "2026-03-10T05:06:35.996Z",
+    "color": "green",
+    "read": false
+  }
+]

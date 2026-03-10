@@ -1,0 +1,19 @@
+{
+  "name": "arch-reset",
+  "description": "Architecture reset planning team for Bitazza iOS app. Three agents analyze, design, and challenge the architecture migration plan.",
+  "createdAt": 1773119117502,
+  "leadAgentId": "team-lead@arch-reset",
+  "leadSessionId": "3911a244-dd40-4ca9-a4da-3a5d17205df9",
+  "members": [
+    {
+      "agentId": "team-lead@arch-reset",
+      "name": "team-lead",
+      "agentType": "team-lead",
+      "model": "claude-opus-4-6",
+      "joinedAt": 1773119117502,
+      "tmuxPaneId": "",
+      "cwd": "/Users/bitazza/Work/btz-ios-refacter-fresh",
+      "subscriptions": []
+    }
+  ]
+}

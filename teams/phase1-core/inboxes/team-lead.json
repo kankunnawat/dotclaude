@@ -1,0 +1,89 @@
+[
+  {
+    "from": "migrator",
+    "text": "## Task #1 Complete: Classification & Migration\n\n### Classification Table (43 files total)\n\n#### CORE — Migrated (9 files)\n\n| Source File | Target | Reason |\n|---|---|---|\n| Extension/Array+Extensions.swift | Extensions/Array+Extensions.swift | Pure Foundation — safe subscript |\n| Extension/Codable+Extensions.swift | Extensions/Codable+Extensions.swift | Pure Foundation — JSON encoding, flexible decoding |\n| Extension/Decimal+Extensions.swift | Extensions/Decimal+Extensions.swift | **HIGH PRIORITY** — Pure Foundation — formatting, rounding, conversion |\n| Extension/Dictionary+Extenstions.swift | Extensions/Dictionary+Extensions.swift | Pure Foundation — JSON serialization |\n| Extension/Double+Extenstions.swift | Extensions/Double+Extensions.swift | Pure Foundation — formatting, rounding, conversion |\n| Extension/Int+Extensions.swift | Extensions/Int+Extensions.swift | Pure Foundation — number formatting |\n| Extension/StringValidation.swift | Extensions/String+Validation.swift | Pure Foundation — email, regex, password validation |\n| Extension/StringUtils.swift (partial) | Extensions/String+Utilities.swift | Pure Foundation subset — number formatting, toDouble, toDecimal, URL encoding, etc. |\n| Utils/CacheWrapper.swift | Utilities/CacheWrapper.swift | Pure Swift — simple property wrapper, made Sendable |\n\n#### DESIGN_SYSTEM — Skipped (12 files)\n\n| File | Reason |\n|---|---|\n| Extension/Color+Extensions.swift | SwiftUI — Color init from hex |\n| Extension/Color+AppColors.swift | SwiftUI + AppType domain ref |\n| Extension/EnvironmentValues+Ext.swift | SwiftUI + UIKit |\n| Extension/LoadingLinePreferenceKey.swift | SwiftUI PreferenceKey |\n| Extension/RoundedCorner.swift | SwiftUI Shape + UIKit |\n| Extension/Screen.swift | UIKit — UIScreen extensions |\n| Extension/TextExtension.swift | SwiftUI + Combine |\n| Extension/ViewModifiers.swift | SwiftUI + SwiftUIX (external) |\n| Extension/ViewModelCommonHandlingViewModifiers.swift | SwiftUI + BaseViewModel domain |\n| Extension/UIControlExtension.swift | UIKit + Combine |\n| Extension/UIImage+Extensions.swift | UIKit |\n| Extension/UITextFieldExtension.swift | UIKit + Combine |\n\n#### DOMAIN — Skipped (15 files)\n\n| File | Reason |\n|---|---|\n| Extension/DateTime.swift | Uses LocalizationManager.locale (domain type) |\n| Extension/ProductExtension.swift | Uses Product domain model |\n| Extension/String.swift | Empty file |\n| Extension/Set.swift | Combine dependency |\n| Utils/BiometricAuthHelper.swift | LocalAuthentication framework |\n| Utils/CachedFirst.swift | Combine + ApiError domain type |\n| Utils/CameraPermissionManager.swift | AVFoundation |\n| Utils/CancellableBag.swift | Combine |\n| Utils/ImageUtils.swift | UIKit + Photos |\n| Utils/NetworkUtils.swift | Network framework |\n| Utils/PersistentCacheWrapper.swift | UserDefaults persistence (domain concern) |\n| Utils/PublishedCacheWrapper.swift | Combine + UserDefaults |\n| Utils/WithCache.swift | Combine + ApiError |\n| Utils/cachedOnFail.swift | Combine + ApiError |\n| Utils/ApiErrorLocalizer.swift | Uses .text()/.isLocalized (DependencyContainer) |\n| Utils/CryptoUtils.swift | CryptoKit framework (not pure Foundation) |\n| Utils/QRCodeGenerator.swift | UIKit + CoreImage |\n| Utils/SystemColorUtils.swift | UIKit + SwiftUI |\n| Utils/AppFontManager.swift | UIKit + SwiftUI + Language domain |\n| Utils/AppStyle.swift | UIKit |\n\n#### EXTERNAL — Skipped (2 files)\n\n| File | Reason |\n|---|---|\n| Extension/KingFisher+Extenstions.swift | Kingfisher framework |\n| Utils/AmityAvatarCacheHelper.swift | AmitySDK framework |\n\n### Migrated Files (9 total)\n```\nPackages/Core/Sources/Core/\n├── Core.swift (existing)\n├── Extensions/\n│   ├── Array+Extensions.swift\n│   ├── Codable+Extensions.swift\n│   ├── Decimal+Extensions.swift   ← HIGH PRIORITY\n│   ├── Dictionary+Extensions.swift\n│   ├── Double+Extensions.swift\n│   ├── Int+Extensions.swift\n│   ├── String+Utilities.swift     ← partial extract from StringUtils\n│   └── String+Validation.swift\n└── Utilities/\n    └── CacheWrapper.swift\n```\n\n### Build Result\n`swift build` passed with **zero warnings** under Swift 6 strict concurrency.\n\n### Key Decisions\n1. **StringUtils.swift was partially migrated** — excluded `text()`, `isLocalized`, `parseLedgerComment()` (domain deps), `createSignature` (CryptoKit), `replaceStringAttribute` (uses NSAttributedString which is technically Foundation but is UI-focused). Only pure Foundation string/number utilities were extracted.\n2. **DateTime.swift was NOT migrated** — 2 functions use `LocalizationManager.locale` which is a domain type. Migrating partially would fragment the file. Better to migrate when LocalizationManager is available in a shared module.\n3. **CryptoUtils.swift was NOT migrated** — CryptoKit is a separate framework, not pure Foundation/stdlib. Conservative decision per the CORE criteria.\n4. **CacheWrapper was made `Sendable`** — added `Sendable` constraint on `T` and marked struct as `Sendable` for Swift 6 compliance.\n5. **Original monolith files are untouched** — Strangler Fig pattern preserved.\n6. **All extensions/types made `public`** for cross-module visibility.\n",
+    "summary": "Task #1 done: 9 files migrated, zero build warnings",
+    "timestamp": "2026-03-10T05:52:46.757Z",
+    "color": "blue",
+    "read": true
+  },
+  {
+    "from": "migrator",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"migrator\",\"timestamp\":\"2026-03-10T05:52:50.826Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T05:52:50.826Z",
+    "color": "blue",
+    "read": true
+  },
+  {
+    "from": "migrator",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"migrator\",\"timestamp\":\"2026-03-10T05:52:59.878Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T05:52:59.878Z",
+    "color": "blue",
+    "read": true
+  },
+  {
+    "from": "tester",
+    "text": "## Task #3 Complete: Core Tests Written\n\n### Results\n- **160 tests** across **9 test files** (+ 1 placeholder replaced), **all passing**\n- 10 test suites covering all 9 migrated source files\n\n### Test Files Created\n| File | Tests | Coverage Focus |\n|---|---|---|\n| `ArrayExtensionsTests.swift` | 5 | Safe subscript: valid, out-of-bounds, negative, empty |\n| `CodableExtensionsTests.swift` | 12 | toJsonString, flexible decode (Double/Int/Bool/Decimal from various types) |\n| `DecimalExtensionsTests.swift` | 27 | **Most thorough** — formatting, rounding, precision, zero/negative/large/small, satoshi amounts, BTC prices, string roundtrip |\n| `DictionaryExtensionsTests.swift` | 4 | JSON serialization: simple, empty, nested, arrays |\n| `DoubleExtensionsTests.swift` | 17 | Formatting, rounding, infinity/NaN, abbreviated, optional |\n| `IntExtensionsTests.swift` | 5 | Separator formatting: zero, negative, small, large |\n| `StringUtilitiesTests.swift` | 30 | numberFormatted, toDouble, toDecimal precision, secureEmail, JSON parsing, URL, decimal manipulation |\n| `StringValidationTests.swift` | 19 | Email (11 cases via parameterized tests), BtzID, range, referrer code, password validators, regex extraction |\n| `CacheWrapperTests.swift` | 6 | Init, get/set, overwrite, Sendable conformance |\n\n### Bugs Found in Migrated Code (NOT fixed, as instructed)\n1. **`takePrefixBefore(symbol:)` and `takeSuffixAfter(symbol:)`** — The `symbol` parameter is completely ignored. Both methods always split on `\".\"` regardless of what symbol is passed. (`String+Utilities.swift:148-162`)\n2. **`Double.countDecimals()`** — Misleading name. Returns the position of the first non-zero digit after the decimal point, not the total count of decimal digits. E.g., `0.005` returns `3`. (`Double+Extensions.swift:82-100`)\n\n### Notes\n- Used `Locale(identifier: \"en_US\")` for all locale-dependent tests to ensure deterministic results\n- Decimal precision tests verify no floating-point drift in financial calculations (satoshi, BTC price formatting)\n- Swift Testing framework with `@Test` attributes and `#expect()` assertions throughout",
+    "summary": "160 tests passing, 2 bugs found in source",
+    "timestamp": "2026-03-10T05:57:31.596Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "tester",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"tester\",\"timestamp\":\"2026-03-10T05:57:35.294Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T05:57:35.294Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "tester",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"tester\",\"timestamp\":\"2026-03-10T05:57:39.014Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T05:57:39.014Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "reviewer",
+    "text": "## Core Package Review Complete\n\n### Review Checklist Results\n\n**All source files pass:**\n- ✅ No UIKit/SwiftUI/Combine imports — only `import Foundation` (or none for `Core.swift`, `CacheWrapper.swift`)\n- ✅ All public API types and methods are `public`\n- ✅ Swift 6 Sendable correctness — `CacheWrapper` is `Sendable` constrained, no mutable shared state\n- ✅ No domain-specific types (no Product, CacheSession, etc.)\n- ✅ No dead code or commented-out code\n- ✅ All functions under 50 lines, all files under 800 lines (largest: `String+Utilities.swift` at 373 lines)\n- ✅ Clean naming conventions following Swift API design guidelines\n\n**All test files pass:**\n- ✅ Uses Swift Testing (`import Testing`, `@Test`, `@Suite`)\n- ✅ Tests edges and errors, not just happy path\n- ✅ Decimal tests cover financial precision (satoshi formatting, 0.1+0.2=0.3, string roundtrip)\n- ✅ No flaky tests — all locale-dependent tests pin `Locale(identifier: \"en_US\")`\n\n### Bugs Fixed\n\n**1. `takePrefixBefore(symbol:)` and `takeSuffixAfter(symbol:)`** (`String+Utilities.swift:148-155`)\n- **Problem:** Both hardcoded `.firstIndex(of: \".\")` — the `symbol` parameter was ignored.\n- **Fix:** Changed to use `self.range(of: symbol)` so the symbol parameter is actually used.\n- **Monolith impact:** These methods are defined but never called in `BitazzaAppV2/` (0 call sites), so no backward-compatibility risk.\n- Added 3 new tests: custom symbol for prefix, custom symbol for suffix, suffix with no match.\n\n**2. `Double.countDecimals()`** (`Double+Extensions.swift:82-100`)\n- **Problem:** Misleading name — returns position of first non-zero decimal digit, not total decimal count. E.g., `0.005` → `3`, `1.5` → `1`.\n- **Analysis:** Checked both monolith call sites (`SpotBuySellViewModel.swift:324`, `QuickTradingViewModel.swift:481`). Both use it on step increments like `0.001` to determine `limitStepIncrement` (number of decimal places for formatting/truncation). The implementation is correct for this use case — for step increments (single non-zero digit), position of first non-zero digit = number of decimal places.\n- **Fix:** Renamed to `firstNonZeroDecimalPosition()` to accurately describe behavior. Implementation unchanged.\n- Added 1 new test for `0.0001` → `4` (step increment scenario).\n\n### Additional Review Findings (Minor)\n\n1. **`print()` calls in `Codable+Extensions.swift:13` and `String+Utilities.swift:179`** — `toJsonString()` and `parseJSON()` use `print()` for error logging. Not ideal for a library (callers can't control output), but acceptable for now since these are diagnostic messages.\n\n2. **`decodeJSONToStringArray()` silently swallows errors** (`String+Utilities.swift:189-190`) — empty catch block. Low risk since it returns nil, but the error context is lost.\n\n3. **`only2DecimalIfTrailIsAllZero()` and `setDecimalPlace()` use `Double` intermediary** — converts String→Double→String which can lose precision. This matches the monolith behavior and callers expect it, so no change needed, but worth noting for future Decimal migration.\n\n4. **`substringAndGetStringFrom` and `substringAndGetOnlyCharacterAt` are instance methods that ignore `self`** — they operate on the `string` parameter, not the string itself. Unusual API design inherited from monolith. No call sites outside the file itself.\n\nNone of these warrant blocking the migration.\n\n### Final Build + Test Status\n- **Build:** ✅ Zero warnings, Swift 6 strict concurrency\n- **Tests:** ✅ 164 tests, all passing\n- **Platform:** iOS 16+, SPM swift-tools-version 6.0\n\n### Overall Assessment\n**Core is ready to use.** The code is clean, well-tested, correctly scoped (pure Foundation, no domain leakage), and both bugs have been fixed. It's a solid leaf module for the dependency graph.",
+    "summary": "Core review complete: 2 bugs fixed, 164 tests pass, ready to use",
+    "timestamp": "2026-03-10T06:00:14.741Z",
+    "color": "yellow",
+    "read": true
+  },
+  {
+    "from": "reviewer",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"reviewer\",\"timestamp\":\"2026-03-10T06:00:24.737Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T06:00:24.737Z",
+    "color": "yellow",
+    "read": true
+  },
+  {
+    "from": "reviewer",
+    "text": "{\"type\":\"idle_notification\",\"from\":\"reviewer\",\"timestamp\":\"2026-03-10T06:00:31.361Z\",\"idleReason\":\"available\"}",
+    "timestamp": "2026-03-10T06:00:31.361Z",
+    "color": "yellow",
+    "read": true
+  },
+  {
+    "from": "tester",
+    "text": "{\"type\":\"shutdown_approved\",\"requestId\":\"shutdown-1773122434663@tester\",\"from\":\"tester\",\"timestamp\":\"2026-03-10T06:00:38.968Z\",\"paneId\":\"%4\",\"backendType\":\"tmux\"}",
+    "timestamp": "2026-03-10T06:00:38.968Z",
+    "color": "green",
+    "read": true
+  },
+  {
+    "from": "reviewer",
+    "text": "{\"type\":\"shutdown_approved\",\"requestId\":\"shutdown-1773122434933@reviewer\",\"from\":\"reviewer\",\"timestamp\":\"2026-03-10T06:00:39.449Z\",\"paneId\":\"%5\",\"backendType\":\"tmux\"}",
+    "timestamp": "2026-03-10T06:00:39.449Z",
+    "color": "yellow",
+    "read": true
+  },
+  {
+    "from": "migrator",
+    "text": "{\"type\":\"shutdown_approved\",\"requestId\":\"shutdown-1773122434399@migrator\",\"from\":\"migrator\",\"timestamp\":\"2026-03-10T06:00:40.696Z\",\"paneId\":\"%3\",\"backendType\":\"tmux\"}",
+    "timestamp": "2026-03-10T06:00:40.696Z",
+    "color": "blue",
+    "read": true
+  }
+]

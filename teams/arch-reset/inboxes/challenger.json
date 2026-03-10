@@ -1,0 +1,15 @@
+[
+  {
+    "from": "team-lead",
+    "text": "The user has provided their architecture template. Key decisions that override or refine your proposals:\n\n**Stack choices (non-negotiable):**\n- `swift-dependencies` (pointfreeco) for DI — NO Swinject, no service locator, no central assembly\n- `swift-sharing` (pointfreeco) for state/persistence — replaces CacheSession with typed `@Shared` stores\n- iOS 16+ minimum, Swift 6 strict concurrency\n- `ObservableObject` only — NOT `@Observable` (iOS 17+)\n- async/await for domain/networking, Combine ONLY for UI binding in ViewModels\n- Struct-of-closures pattern for API clients (not protocol-based NetworkService)\n- Per-feature Router with typed Route enum (not full Coordinator pattern)\n- SPM local packages with enforced dependency graph\n- TDD with `withDependencies {}` — no separate mock framework\n- No BaseViewModel inheritance\n- No global HTTP cache disable\n- 300 lines max per ViewModel, 100 lines max per function\n- `Decimal` for all monetary values\n\n**Module graph:**\nApp → all packages\nFeatures/* → DomainKit, DesignSystem, Core\nDomainKit → NetworkKit, AuthKit, Core\nAuthKit → NetworkKit, Core\nNetworkKit → Core\nDesignSystem → (nothing internal)\nCore → (nothing internal)\n\n**Persistence mapping (replaces CacheSession):**\n- Auth tokens/secrets → `@Shared(.keychain(\"key\"))`\n- Cached models/user profile → `@Shared(.fileStorage(.user))`\n- Volatile data (prices, live feeds) → `@Shared(.inMemory(\"market\"))`\n- UI preferences → `@Shared(.appStorage(\"theme\"))`\n\nGiven these constraints, please revise your analysis/proposal to identify:\n1. What from your original report still applies?\n2. What changes given these architectural choices?\n3. What are the NEW risks or concerns specific to this stack?\n\nFocus especially on: swift-dependencies migration path from Swinject, swift-sharing migration from CacheSession, and the Combine→async/await transition for the WebSocket layer.\n\nSend your revised assessment back to me.",
+    "summary": "Architecture template shared — revise your proposals",
+    "timestamp": "2026-03-10T05:26:39.198Z",
+    "read": true
+  },
+  {
+    "from": "team-lead",
+    "text": "{\"type\":\"shutdown_request\",\"requestId\":\"shutdown-1773120625000@challenger\",\"from\":\"team-lead\",\"reason\":\"Your challenge was invaluable — the CacheSession clear() problem and Keychain SharedKey gap were catches that would have bitten us in production. Shutting down the team now.\",\"timestamp\":\"2026-03-10T05:30:25.000Z\"}",
+    "timestamp": "2026-03-10T05:30:25.000Z",
+    "read": true
+  }
+]

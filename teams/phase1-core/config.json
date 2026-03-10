@@ -1,0 +1,19 @@
+{
+  "name": "phase1-core",
+  "description": "Phase 1: Migrate pure extensions and utilities from BitazzaAppV2 monolith into Packages/Core. Sequential workflow: migrator → tester → reviewer.",
+  "createdAt": 1773121633971,
+  "leadAgentId": "team-lead@phase1-core",
+  "leadSessionId": "dcbbc8ec-011a-4a42-9c7c-20246dbfc53f",
+  "members": [
+    {
+      "agentId": "team-lead@phase1-core",
+      "name": "team-lead",
+      "agentType": "lead",
+      "model": "claude-opus-4-6",
+      "joinedAt": 1773121633971,
+      "tmuxPaneId": "",
+      "cwd": "/Users/bitazza/Work/btz-ios-refacter-fresh",
+      "subscriptions": []
+    }
+  ]
+}
