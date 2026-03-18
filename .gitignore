@@ -40,6 +40,5 @@ usage-data/
 
 # Internal
 .claude/
-statusline.sh
 telemetry/
 todos/

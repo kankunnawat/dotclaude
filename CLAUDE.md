@@ -28,6 +28,22 @@ Write detailed specs before implementation. Challenge the output — "grill me o
 
 When context compression occurs, re-read the project's task tracking file (e.g., `resume-state.md`) immediately — don't continue from memory alone. Log meaningful decisions to a progress file as they happen, not at session end.
 
+### Multi-machine sync
+
+Configs live in a private GitHub repo (`dotclaude`). Project memory syncs via iCloud.
+
+- **Before switching machines:** `~/.claude/sync.sh push`
+- **After switching machines:** `~/.claude/sync.sh pull`
+- **Project memory** (`MEMORY.md` files) — no action needed, iCloud syncs automatically
+- **New machine setup:** `git clone git@github.com:kankunnawat/dotclaude.git ~/.claude && ~/.claude/bootstrap.sh`
+
+### Obsidian Vault
+
+- Vault path: `/Users/bitazza/Documents/Obsidian Vault/`
+- At session start, read `Context/dashboard.md` via `mcp__obsidian__read_note` for cross-project orientation
+- After significant sessions, suggest `/save-to-vault` to capture knowledge
+- Never scan the full vault automatically — read specific notes only when asked
+
 ## Philosophy
 
 - **No speculative features** — Don't add features, flags, or configuration unless actively needed
@@ -67,6 +83,10 @@ For each issue: describe concretely with file:line references, present options w
 | `trash` | rm | `trash file` — recoverable delete. **Never use `rm -rf`** |
 | `wt` | git worktree | `wt switch branch` — manage parallel worktrees |
 | `prek` | pre-commit | `prek run` — fast git hooks |
+
+## GitHub
+
+- **Always create repos as private** (`gh repo create --private`) unless explicitly told to make public
 
 ## Commits and PRs
 

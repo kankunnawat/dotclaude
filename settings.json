@@ -7,9 +7,6 @@
     "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
-  "preferences": {
-    "tmuxSplitPanes": true
-  },
   "permissions": {
     "allow": [
       "Bash(swift build*)",
@@ -158,10 +155,10 @@
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "ralph-loop@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": false,
+    "frontend-design@claude-plugins-official": false,
+    "ralph-loop@claude-plugins-official": false,
+    "swift-lsp@claude-plugins-official": false,
     "skill-creator@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
@@ -169,16 +166,16 @@
     "commit-commands@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
     "claude-mem@thedotmack": true,
-    "typescript-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": false,
     "hookify@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true,
-    "claude-code-setup@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": false,
+    "claude-code-setup@claude-plugins-official": false,
     "explanatory-output-style@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": false,
     "mgrep@Mixedbread-Grep": true,
-    "everything-claude-code@everything-claude-code": true,
-    "swiftui-expert@swiftui-expert-skill": true,
-    "code-simplifier@claude-plugins-official": true
+    "everything-claude-code@everything-claude-code": false,
+    "swiftui-expert@swiftui-expert-skill": false,
+    "code-simplifier@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "thedotmack": {
@@ -206,8 +203,19 @@
         "source": "github",
         "repo": "AvdLee/SwiftUI-Agent-Skill"
       }
+    },
+    "obsidian-skills": {
+      "source": {
+        "source": "github",
+        "repo": "kepano/obsidian-skills"
+      }
     }
   },
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true
+  "voiceEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "preferences": {
+    "tmuxSplitPanes": true
+  },
+  "model": "opusplan"
 }
